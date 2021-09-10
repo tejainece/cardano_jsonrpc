@@ -1,5 +1,10 @@
+import 'dart:typed_data';
+import 'package:ninja/ninja.dart';
+
 import 'package:bs58check/bs58check.dart';
 import 'package:ninja_ed25519/ninja_ed25519.dart';
+import 'package:cbor/cbor.dart';
+import 'package:typed_data/typed_buffers.dart';
 
 void main() {
   /*
@@ -11,4 +16,12 @@ void main() {
 
   final bytes = base58.decode('Ae2tdPwUPEZDQzUQxPTD77cyJafnDNxEXtRrEAcLcbEw15NBpDvFRviBWWh');
   print(bytes);
+  print(bytes.length);
+  final cbor = Cbor();
+  cbor.decodeFromList(bytes);
+  final data = cbor.getDecodedData()!;
+  final List<int> list = data[0][0];
+  print(list.length);
+  print(list.map((e) => e.hexByte).toList());
+
 }
