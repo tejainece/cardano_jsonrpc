@@ -1,12 +1,12 @@
 import 'package:ninja_ed25519/ninja_ed25519.dart';
 
 class AdaPrivateKey {
-  final RFC8032Seed key;
+  final PrivateKey key;
 
   AdaPrivateKey(this.key);
 
   factory AdaPrivateKey.fromBech32(String key) {
-    return AdaPrivateKey(RFC8032Seed.fromBech32(key));
+    return AdaPrivateKey(PrivateKey.fromBech32(key));
   }
 
   AdaPublicKey get public => AdaPublicKey(key.publicKey);
