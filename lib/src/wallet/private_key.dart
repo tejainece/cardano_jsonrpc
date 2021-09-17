@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:bech32/bech32.dart';
+import 'package:ninja_basex/ninja_basex.dart';
 import 'package:ninja_ed25519/ninja_ed25519.dart';
 
 class AdaPrivateKey {
@@ -22,16 +25,11 @@ class AdaPublicKey {
 
   factory AdaPublicKey.fromBech32(String key) {
     final bechData = bech32.decode(key, 110);
-    print(bechData.hrp);
-    print(bechData.data);
-    // TODO return AdaPublicKey(PublicKey.fromBech32(key));
-    throw UnimplementedError();
+    var data = fromBaseBytes(bechData.data, 32);
+    return AdaPublicKey(PublicKey(Uint8List.fromList(data)));
   }
 
   String toBech32({String hrp = 'addr'}) => key.toBech32(hrp);
 
-  String toAddress() {
-    // TODO
-    throw UnimplementedError();
-  }
+  String toAddress({String hrp = 'addr'}) => toBech32(hrp: hrp);
 }
