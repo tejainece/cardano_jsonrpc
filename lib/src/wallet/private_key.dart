@@ -26,6 +26,7 @@ class AdaPublicKey {
   factory AdaPublicKey.fromBech32(String key) {
     final bechData = bech32.decode(key, 110);
     var data = fromBaseBytes(bechData.data, 32);
+    print(data);
     return AdaPublicKey(PublicKey(Uint8List.fromList(data)));
   }
 
